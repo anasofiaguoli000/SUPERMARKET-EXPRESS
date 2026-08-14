@@ -1,128 +1,175 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SuperMarket Express</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    <title>SuperMarket Express</title>
 
-    body {
-      font-family: Arial, Helvetica, sans-serif;
-      background: #f3f7ef;
-    }
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    .contenedor {
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 30px;
-    }
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f4f8ef;
+        }
 
-    .banner {
-      position: relative;
-      width: 100%;
-      max-width: 1100px;
-      overflow: hidden;
-      border-radius: 20px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-    }
+        .pagina {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 30px;
+        }
 
-    .banner img {
-      display: block;
-      width: 100%;
-      height: auto;
-    }
+        .banner {
+            width: 100%;
+            max-width: 1100px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.18);
+        }
 
-    .boton {
-      position: absolute;
-      left: 8%;
-      bottom: 9%;
-      background: #ffd719;
-      color: #174d27;
-      border: none;
-      border-radius: 30px;
-      padding: 14px 28px;
-      font-size: 16px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: 0.3s;
-    }
+        .banner img {
+            width: 100%;
+            display: block;
+        }
 
-    .boton:hover {
-      background: #ffdf4d;
-      transform: scale(1.05);
-    }
+        .boton-comprar {
+            position: absolute;
+            left: 8%;
+            bottom: 9%;
 
-    .mensaje {
-      display: none;
-      text-align: center;
-      background: #174d27;
-      color: white;
-      padding: 15px;
-      font-weight: bold;
-    }
+            background: #ffd719;
+            color: #174d27;
 
-    .mensaje.mostrar {
-      display: block;
-    }
+            border: none;
+            border-radius: 30px;
 
-    @media (max-width: 600px) {
-      .contenedor {
-        padding: 10px;
-      }
+            padding: 15px 28px;
 
-      .boton {
-        padding: 8px 15px;
-        font-size: 11px;
-      }
-    }
-  </style>
+            font-size: 16px;
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition: all 0.3s ease;
+        }
+
+        .boton-comprar:hover {
+            transform: scale(1.08);
+            background: #ffe34d;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .boton-comprar:active {
+            transform: scale(0.98);
+        }
+
+        .mensaje {
+            position: absolute;
+            left: 50%;
+            bottom: 20px;
+
+            transform: translateX(-50%);
+
+            background: #174d27;
+            color: white;
+
+            padding: 12px 25px;
+
+            border-radius: 30px;
+
+            font-weight: bold;
+
+            opacity: 0;
+            visibility: hidden;
+
+            transition: 0.3s;
+        }
+
+        .mensaje.mostrar {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        @media (max-width: 700px) {
+
+            .pagina {
+                padding: 10px;
+            }
+
+            .banner {
+                border-radius: 12px;
+            }
+
+            .boton-comprar {
+                left: 7%;
+                bottom: 8%;
+
+                padding: 9px 15px;
+                font-size: 11px;
+            }
+
+            .mensaje {
+                font-size: 11px;
+                padding: 8px 15px;
+                bottom: 8px;
+                white-space: nowrap;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-  <div class="contenedor">
+    <main class="pagina">
 
-    <div class="banner">
+        <section class="banner">
 
-      <!-- Imagen del supermercado -->
-      <img src="656893de-13ae-4390-9aad-f9c41ba22001.png"
-           alt="SuperMarket Express">
+            <!-- Imagen principal -->
+            <img src="banner.png" alt="SuperMarket Express">
 
-      <!-- Botón -->
-      <button class="boton" onclick="comprar()">
-        🛒 COMPRAR AHORA
-      </button>
+            <!-- Botón -->
+            <button
+                class="boton-comprar"
+                onclick="comprar()">
+                🛒 COMPRAR AHORA
+            </button>
 
-      <!-- Mensaje -->
-      <div id="mensaje" class="mensaje">
-        ✅ ¡Tu compra ha comenzado correctamente!
-      </div>
+            <!-- Mensaje -->
+            <div
+                id="mensaje"
+                class="mensaje">
+                ✅ ¡Tu compra ha comenzado!
+            </div>
 
-    </div>
+        </section>
 
-  </div>
+    </main>
 
-  <script>
-    function comprar() {
-      const mensaje = document.getElementById("mensaje");
+    <script>
 
-      mensaje.classList.add("mostrar");
+        function comprar() {
 
-      setTimeout(function() {
-        mensaje.classList.remove("mostrar");
-      }, 3000);
-    }
-  </script>
+            const mensaje = document.getElementById("mensaje");
+
+            mensaje.classList.add("mostrar");
+
+            setTimeout(() => {
+
+                mensaje.classList.remove("mostrar");
+
+            }, 3000);
+        }
+
+    </script>
 
 </body>
 </html>
-
 
