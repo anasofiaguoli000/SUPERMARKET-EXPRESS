@@ -3,13 +3,173 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi Primera Página Web</title>
+
+    <title>SuperMarket Express</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f4f8ef;
+        }
+
+        .pagina {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 30px;
+        }
+
+        .banner {
+            width: 100%;
+            max-width: 1100px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.18);
+        }
+
+        .banner img {
+            width: 100%;
+            display: block;
+        }
+
+        .boton-comprar {
+            position: absolute;
+            left: 8%;
+            bottom: 9%;
+
+            background: #ffd719;
+            color: #174d27;
+
+            border: none;
+            border-radius: 30px;
+
+            padding: 15px 28px;
+
+            font-size: 16px;
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition: all 0.3s ease;
+        }
+
+        .boton-comprar:hover {
+            transform: scale(1.08);
+            background: #ffe34d;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .boton-comprar:active {
+            transform: scale(0.98);
+        }
+
+        .mensaje {
+            position: absolute;
+            left: 50%;
+            bottom: 20px;
+
+            transform: translateX(-50%);
+
+            background: #174d27;
+            color: white;
+
+            padding: 12px 25px;
+
+            border-radius: 30px;
+
+            font-weight: bold;
+
+            opacity: 0;
+            visibility: hidden;
+
+            transition: 0.3s;
+        }
+
+        .mensaje.mostrar {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        @media (max-width: 700px) {
+
+            .pagina {
+                padding: 10px;
+            }
+
+            .banner {
+                border-radius: 12px;
+            }
+
+            .boton-comprar {
+                left: 7%;
+                bottom: 8%;
+
+                padding: 9px 15px;
+                font-size: 11px;
+            }
+
+            .mensaje {
+                font-size: 11px;
+                padding: 8px 15px;
+                bottom: 8px;
+                white-space: nowrap;
+            }
+        }
+    </style>
 </head>
+
 <body>
-    <h1>¡Hola, mundo!</h1>
-    <p>Esta es una página web muy sencilla hecha con HTML.</p>
-    <a href="https://google.com">Ir a Google</a>
+
+    <main class="pagina">
+
+        <section class="banner">
+
+            <!-- Imagen principal -->
+            <img src="banner.png" alt="SuperMarket Express">
+
+            <!-- Botón -->
+            <button
+                class="boton-comprar"
+                onclick="comprar()">
+                🛒 COMPRAR AHORA
+            </button>
+
+            <!-- Mensaje -->
+            <div
+                id="mensaje"
+                class="mensaje">
+                ✅ ¡Tu compra ha comenzado!
+            </div>
+
+        </section>
+
+    </main>
+
+    <script>
+
+        function comprar() {
+
+            const mensaje = document.getElementById("mensaje");
+
+            mensaje.classList.add("mostrar");
+
+            setTimeout(() => {
+
+                mensaje.classList.remove("mostrar");
+
+            }, 3000);
+        }
+
+    </script>
+
 </body>
 </html>
-
 
