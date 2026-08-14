@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SuperMarket Express</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f5fff2;
+            color: #245b35;
+        }
+
+        /* ENCABEZADO */
+        header {
+            background-color: white;
+            padding: 18px 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 3px 12px #0002;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #299447;
+        }
+
+        .logo span {
+            color: #72ad25;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #25663b;
+            font-weight: bold;
+            margin: 0 10px;
+        }
+
+        nav a:hover {
+            color: #f0bd00;
+        }
+
+        /* PORTADA */
+        .portada {
+            padding: 35px 5%;
+            background: linear-gradient(135deg, #ffffff, #effbea);
+            text-align: center;
+        }
+
+        .portada img {
+            width: 100%;
+            max-width: 1200px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px #0003;
+        }
+
+        .boton {
+            display: inline-block;
+            background-color: #ffd329;
+            color: #225c36;
+            padding: 14px 28px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 20px;
+            box-shadow: 0 5px 12px #0002;
+        }
+
+        .boton:hover {
+            background-color: #f1bb00;
+        }
+
+        /* SECCIONES */
+        section {
+            padding: 60px 6%;
+        }
+
+        .titulo {
+            text-align: center;
+            font-size: 38px;
+            color: #299447;
+            margin-bottom: 15px;
+        }
+
+        .descripcion {
+            text-align: center;
+            max-width: 750px;
+            margin: auto;
+            color: #55705d;
+            font-size: 18px;
+        }
+
+        /* IMÁGENES */
+        .imagen-grande {
+            display: block;
+            width: 100%;
+            max-width: 1000px;
+            margin: 30px auto;
+            border-radius: 20px;
+            box-shadow: 0 8px 25px #0002;
+        }
+
+        .galeria {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .tarjeta {
+            background-color: white;
+            width: 45%;
+            min-width: 300px;
+            border-radius: 20px;
+            padding: 15px;
+            box-shadow: 0 7px 20px #0002;
+            text-align: center;
+        }
+
+        .tarjeta img {
+            width: 100%;
+            border-radius: 15px;
+        }
+
+        .tarjeta h3 {
+            color: #299447;
+        }
+
+        /* PRODUCTOS */
+        .productos {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .producto {
+            background-color: white;
+            width: 200px;
+            padding: 20px;
+            text-align: center;
+            border-radius: 18px;
+            box-shadow: 0 5px 15px #0002;
+            transition: transform 0.2s;
+        }
+
+        .producto:hover {
+            transform: translateY(-7px);
+        }
+
+        .producto h3 {
+            color: #299447;
+        }
+
+        .precio {
+            color: #e6ad00;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        /* PROMOCIONES */
+        .promocion {
+            background-color: #299447;
+            color: white;
+            text-align: center;
+            border-radius: 25px;
+            padding: 45px;
+            margin: 20px auto;
+            max-width: 1000px;
+        }
+
+        .promocion h2 {
+            font-size: 40px;
+            color: #ffd329;
+        }
+
+        /* TABLAS */
+        .tabla-contenedor {
+            overflow-x: auto;
+            margin-top: 30px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: white;
+            box-shadow: 0 5px 15px #0002;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        th {
+            background-color: #299447;
+            color: white;
+            padding: 15px;
+        }
+
+        td {
+            padding: 13px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+
+        tr:hover {
+            background-color: #f1faed;
+        }
+
+        /* VIDEO */
+        .video {
+            text-align: center;
+        }
+
+        video {
+            width: 90%;
+            max-width: 900px;
+            border-radius: 20px;
+            box-shadow: 0 8px 25px #0003;
+            margin-top: 25px;
+        }
+
+        /* DOMICILIOS */
+        .domicilios {
+            background: linear-gradient(135deg, #fff8c9, #eaf9e7);
+            text-align: center;
+            border-radius: 25px;
+        }
+
+        .domicilios h2 {
+            color: #299447;
+            font-size: 40px;
+        }
+
+        .telefono {
+            font-size: 25px;
+            font-weight: bold;
+            color: #299447;
+        }
+
+        /* DESCRIPCIÓN */
+        .proyecto {
+            background-color: white;
+        }
+
+        .proyecto-contenido {
+            max-width: 1000px;
+            margin: auto;
+            font-size: 18px;
+            line-height: 1.8;
+        }
+
+        .proyecto-contenido li {
+            margin: 10px 0;
+        }
+
+        /* ESTADÍSTICAS */
+        .estadisticas {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .estadistica {
+            background-color: white;
+            width: 200px;
+            padding: 25px;
+            text-align: center;
+            border-radius: 20px;
+            box-shadow: 0 5px 15px #0002;
+        }
+
+        .estadistica strong {
+            display: block;
+            font-size: 35px;
+            color: #299447;
+        }
+
+        /* PIE DE PÁGINA */
+        footer {
+            background-color: #174d2d;
+            color: white;
+            text-align: center;
+            padding: 30px;
+        }
+
+        footer span {
+            color: #ffd329;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 700px) {
+
+            header {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            nav a {
+                display: inline-block;
+                margin: 5px;
+            }
+
+            .titulo {
+                font-size: 30px;
+            }
+
+            .tarjeta {
+                width: 100%;
+            }
+
+            .promocion h2 {
+                font-size: 30px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ENCABEZADO -->
+    <header>
+
+        <div class="logo">
+            Super<span>Market</span> EXPRESS
+        </div>
+
+        <nav>
+            <a href="#inicio">Inicio</a>
+            <a href="#frutas">Frutas</a>
+            <a href="#verduras">Verduras</a>
+            <a href="#promociones">Promociones</a>
+            <a href="#datos">Datos</a>
+            <a href="#proyecto">Proyecto</a>
+        </nav>
+
+    </header>
+
+
+    <!-- PORTADA -->
+    <section id="inicio" class="portada">
+
+        <img src="assets/portada.PNG"
+             alt="SuperMarket Express">
+
+        <br>
+
+        <a href="#frutas" class="boton">
+            🛒 COMPRAR AHORA
+        </a>
+
+    </section>
+
+
+    <!-- INTRODUCCIÓN -->
+    <section>
+
+        <h1 class="titulo">
+            Todo lo que necesitas
+        </h1>
+
+        <p class="descripcion">
+            SuperMarket Express es una propuesta de tienda virtual
+            enfocada en ofrecer frutas, verduras, promociones y
+            servicio de domicilio de una manera rápida y sencilla.
+        </p>
+
+    </section>
+
+
+    <!-- FRUTAS -->
+    <section id="frutas">
+
+        <h2 class="titulo">
+            🍎 Sección de Frutas
+        </h2>
+
+        <p class="descripcion">
+            Encuentra frutas frescas y de excelente calidad.
+        </p>
+
+        <div class="galeria">
+
+            <div class="tarjeta">
+
+                <img src="assets/frutas.png"
+                     alt="Sección de frutas">
+
+                <h3>Frutas frescas</h3>
+
+            </div>
+
+            <div class="tarjeta">
+
+                <img src="assets/frutas-productos.png"
+                     alt="Productos de frutas">
+
+                <h3>Productos y precios</h3>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- PRODUCTOS -->
+    <section>
+
+        <h2 class="titulo">
+            🍏 Nuestros productos
+        </h2>
+
+        <div class="productos">
+
+            <div class="producto">
+                <h3>🍎 Manzana</h3>
+                <p class="precio">$2.000 / unidad</p>
+            </div>
+
+            <div class="producto">
+                <h3>🥑 Aguacate</h3>
+                <p class="precio">$10.000 / kg</p>
+            </div>
+
+            <div class="producto">
+                <h3>⭐ Carambolo</h3>
+                <p class="precio">$5.000 / kg</p>
+            </div>
+
+            <div class="producto">
+                <h3>🍐 Pera</h3>
+                <p class="precio">$2.500 / kg</p>
+            </div>
+
+            <div class="producto">
+                <h3>🍅 Tomate</h3>
+                <p class="precio">$5.000 / kg</p>
+            </div>
+
+            <div class="producto">
+                <h3>🍋 Limón Tahití</h3>
+                <p class="precio">$2.500 / kg</p>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- VERDURAS -->
+    <section id="verduras">
+
+        <h2 class="titulo">
+            🥦 Sección de Verduras
+        </h2>
+
+        <p class="descripcion">
+            Productos frescos para complementar tus compras.
+        </p>
+
+        <img class="imagen-grande"
+             src="assets/verduras.png"
+             alt="Sección de verduras">
+
+        <div class="productos">
+
+            <div class="producto">
+                <h3>🥬 Acelga</h3>
+                <p class="precio">$5.000 / paquete</p>
+            </div>
+
+            <div class="producto">
+                <h3>🥗 Lechuga Crespa</h3>
+                <p class="precio">$10.000 / kg</p>
+            </div>
+
+            <div class="producto">
+                <h3>🥕 Zanahoria</h3>
+                <p class="precio">$5.000 / kg</p>
+            </div>
+
+            <div class="producto">
+                <h3>🌶️ Chile</h3>
+                <p class="precio">$2.500 / kg</p>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- PROMOCIONES -->
+    <section id="promociones">
+
+        <h2 class="titulo">
+            🎉 Promociones
+        </h2>
+
+        <img class="imagen-grande"
+             src="assets/promociones.png"
+             alt="Promociones SuperMarket Express">
+
+        <div class="promocion">
+
+            <h2>¡Participa en la Rifa!</h2>
+
+            <p>
+                Por compras superiores a $80.000
+                podrás ganar un mercado de $300.000.
+            </p>
+
+            <p>
+                Sorteo: 22 de agosto a las 5:00 P.M.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- DOMICILIOS -->
+    <section class="domicilios">
+
+        <h2>
+            🚚 Domicilios
+        </h2>
+
+        <p>
+            Lleva tus productos hasta la puerta de tu casa
+            en menos de 24 horas.
+        </p>
+
+        <p class="telefono">
+            📞 (+57) 311 882 2552
+        </p>
+
+        <a class="boton"
+           href="tel:+573118822552">
+            PEDIR DOMICILIO
+        </a>
+
+    </section>
+
+
+    <!-- VIDEO -->
+    <section class="video">
+
+        <h2 class="titulo">
+            🎬 Video de presentación
+        </h2>
+
+        <p class="descripcion">
+            Presentación audiovisual del proyecto SuperMarket Express.
+        </p>
+
+        <video controls>
+
+            <source src="assets/presentacion.mp4"
+                    type="video/mp4">
+
+            Tu navegador no puede reproducir este video.
+
+        </video>
+
+    </section>
+
+
+    <!-- TABLAS -->
+    <section id="datos">
+
+        <h2 class="titulo">
+            📊 Datos del proyecto
+        </h2>
+
+        <p class="descripcion">
+            Tablas con información numérica relacionada con
+            el contenido desarrollado para la página.
+        </p>
+
+
+        <div class="tabla-contenedor">
+
+            <table>
+
+                <tr>
+                    <th>Elemento</th>
+                    <th>Porcentaje</th>
+                </tr>
+
+                <tr>
+                    <td>Productos y categorías</td>
+                    <td>40%</td>
+                </tr>
+
+                <tr>
+                    <td>Promociones</td>
+                    <td>20%</td>
+                </tr>
+
+                <tr>
+                    <td>Domicilios</td>
+                    <td>20%</td>
+                </tr>
+
+                <tr>
+                    <td>Información del proyecto</td>
+                    <td>20%</td>
+                </tr>
+
+            </table>
+
+        </div>
+
+
+        <br><br>
+
+
+        <div class="tabla-contenedor">
+
+            <table>
+
+                <tr>
+                    <th>Producto</th>
+                    <th>Precio</th>
+                </tr>
+
+                <tr>
+                    <td>Manzana</td>
+                    <td>$2.000 / unidad</td>
+                </tr>
+
+                <tr>
+                    <td>Aguacate</td>
+                    <td>$10.000 / kg</td>
+                </tr>
+
+                <tr>
+                    <td>Carambolo</td>
+                    <td>$5.000 / kg</td>
+                </tr>
+
+                <tr>
+                    <td>Pera</td>
+                    <td>$2.500 / kg</td>
+                </tr>
+
+                <tr>
+                    <td>Tomate</td>
+                    <td>$5.000 / kg</td>
+                </tr>
+
+                <tr>
+                    <td>Limón Tahití</td>
+                    <td>$2.500 / kg</td>
+                </tr>
+
+            </table>
+
+        </div>
+
+
+        <!-- ESTADÍSTICAS -->
+
+        <div class="estadisticas">
+
+            <div class="estadistica">
+                <strong>5</strong>
+                Piezas gráficas
+            </div>
+
+            <div class="estadistica">
+                <strong>2</strong>
+                Categorías
+            </div>
+
+            <div class="estadistica">
+                <strong>6+</strong>
+                Productos
+            </div>
+
+            <div class="estadistica">
+                <strong>1</strong>
+                Video
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- DESCRIPCIÓN DEL PROYECTO -->
+    <section id="proyecto" class="proyecto">
+
+        <h2 class="titulo">
+            💻 Descripción de la generación de la página
+        </h2>
+
+        <div class="proyecto-contenido">
+
+            <p>
+                La página web de SuperMarket Express fue desarrollada
+                utilizando HTML como lenguaje principal. Se creó una
+                estructura organizada para presentar información sobre
+                productos, frutas, verduras, promociones y domicilios.
+            </p>
+
+            <p>
+                Para mejorar la presentación visual se utilizaron
+                diferentes tamaños de letras, colores, botones,
+                imágenes, tablas, tarjetas y diferentes posiciones
+                para los elementos.
+            </p>
+
+            <p>
+                También se incorporaron imágenes relacionadas con
+                el proyecto y un video de presentación. Las tablas
+                permiten mostrar datos numéricos como precios y
+                porcentajes.
+            </p>
+
+            <h3>Proceso realizado:</h3>
+
+            <ol>
+
+                <li>
+                    Se organizaron las imágenes del proyecto.
+                </li>
+
+                <li>
+                    Se creó la estructura de la página utilizando HTML.
+                </li>
+
+                <li>
+                    Se agregaron títulos, textos, imágenes y botones.
+                </li>
+
+                <li>
+                    Se crearon las secciones de frutas y verduras.
+                </li>
+
+                <li>
+                    Se agregaron las promociones y el servicio
+                    de domicilios.
+                </li>
+
+                <li>
+                    Se incluyeron tablas con datos numéricos.
+                </li>
+
+                <li>
+                    Se agregó un video relacionado con el proyecto.
+                </li>
+
+                <li>
+                    Finalmente, el archivo puede subirse a GitHub
+                    y posteriormente desplegarse en Vercel.
+                </li>
+
+            </ol>
+
+        </div>
+
+    </section>
+
+
+    <!-- PIE DE PÁGINA -->
+    <footer>
+
+        <h2>
+            SuperMarket <span>EXPRESS</span>
+        </h2>
+
+        <p>
+            Proyecto académico de desarrollo web
+        </p>
+
+        <p>
+            © 2026 SuperMarket Express
+        </p>
+
+    </footer>
+
+</body>
+</html>
