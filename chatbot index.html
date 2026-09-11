@@ -1,0 +1,189 @@
+import requests
+
+# Coloca aquí tu nueva API Key
+API_KEY = "sk-22f9df29562b47a1aadb5303be7e34e0"
+
+API_URL = "https://api.deepseek.com/v1/chat/completions"
+
+
+def generar_prompt_supermercado():
+    """Crea las instrucciones para el chatbot del supermercado"""
+
+    return """
+Eres el asistente virtual de un supermercado.
+
+Tu función es ayudar a los clientes con información sobre:
+- Productos disponibles
+- Precios
+- Categorías de productos
+- Promociones
+- Recomendaciones de productos
+- Información básica sobre compras
+
+Debes responder de manera amable, clara y sencilla.
+
+Si el cliente pregunta por un producto que no conoces busca informacion en algun lugar hasta que podamos brindarle informacion al cliente.
+
+le damos promociones a los clientes que su compra superen los $30.
+
+El supermercado vende productos como:
+- Frutas y verduras
+- Carnes
+- Lácteos
+- Bebidas
+- Snacks
+- Productos de aseo
+- Productos de higiene
+- Panadería
+- Productos de despensa
+- jugueteria
+- automotriz
+- inmotica
+-nautico
+- entre otros
+
+Responde siempre en español.
+"""
+
+
+def chatbot_supermercado(pregunta):
+    """Envía la pregunta del cliente a bonilla """
+
+    headers = {
+        "Authorization": f"Bearer {API_KEY}",
+        "Content-Type": "application/json"
+    }
+
+    prompt = generar_prompt_supermercado()
+
+    data = {
+        "model": "deepseek-chat",
+        "temperature": 0.5,
+        "messages": [
+            {
+                "role": "system",
+                "content": prompt
+            },
+            {
+                "role": "user",
+                "content": pregunta
+            }
+        ]
+    }
+
+    try:
+        response = requests.post(
+            API_URL,
+            headers=headers,
+            json=data
+        )
+
+        response.raise_for_status()
+
+        return response.json()["choices"][0]["message"]["content"]
+
+    except requests.exceptions.HTTPError as err:
+        return f"Error en la API: {err.response.text}"
+
+    except Exception as e:
+        return f"Error: {e}"
+
+
+def menu():
+    """Muestra el menú principal"""
+
+    print("\n================================")
+    print("     SUPERMERCADO VIRTUAL")
+    print("================================")
+    print("1. Consultar un producto")
+    print("2. Preguntar al chatbot")
+    print("3. Ver categorías")
+    print("4. Salir")
+    print("================================")
+
+    return input("Elige una opción: ")
+
+
+def mostrar_categorias():
+    """Muestra las categorías del supermercado"""
+
+    print("\n=== CATEGORÍAS ===")
+    print("1. Frutas y verduras")
+    print("2. Carnes")
+    print("3. Lácteos")
+    print("4. Bebidas")
+    print("5. Snacks")
+    print("6. Productos de aseo")
+    print("7. Higiene")
+    print("8. Panadería")
+    print("9. Despensa")
+
+
+def main():
+
+    print("""
+========================================
+   ¡BIENVENIDO AL SUPERMERCADO!
+========================================
+Soy tu asistente virtual.
+
+Puedo ayudarte a consultar productos,
+categorías, precios y recomendaciones.
+""")
+
+    while True:
+
+        opcion = menu()
+
+        if opcion == "1":
+
+            producto = input(
+                "\n¿Qué producto quieres consultar?: "
+            )
+
+            pregunta = f"""
+            El cliente quiere consultar el siguiente producto:
+            {producto}
+
+            por favor indica: precio,gramaje, disponibilidad y cual deseas .
+            """
+
+            respuesta = chatbot_supermercado(pregunta)
+            while True:
+                print("deseas seguir consultando otros productos o algo en especifico")
+                print("\n=== RESPUESTA ===")
+                print(respuesta)
+                input("\nEscribe tu pregunta:")
+
+        elif opcion == "2":
+
+            pregunta = input(
+                "\nEscribe tu pregunta: "
+            )
+
+            if pregunta.lower() == "salir":
+                print("¡Gracias por visitar nuestro supermercado!")
+                break
+
+            respuesta = chatbot_supermercado(pregunta)
+
+            print("\n=== CHATBOT ===")
+            print(respuesta)
+
+        elif opcion == "3":
+
+            mostrar_categorias()
+
+        elif opcion == "4":
+
+            print("\n¡Gracias por visitar nuestro supermercado!")
+            print("¡Hasta pronto!")
+            break
+
+        else:
+
+            print("\nOpción no válida. Intenta nuevamente.")
+
+
+if __name__ == "__main__":
+    main()
